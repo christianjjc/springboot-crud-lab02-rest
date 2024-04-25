@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,26 +21,31 @@ public class CursoController {
     private CursoService cursoService;
 
     @GetMapping(value = "cursos", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public List<CursoEntity> listarTodos(){
         return cursoService.listarTodos();
     }
 
     @GetMapping(value = "cursos/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public CursoEntity obtenerCurso(@PathVariable (value="id") Integer id){
         return getCursoService().obtenerCurso(id);
     }
 
     @DeleteMapping(value = "cursos/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean eliminarCurso(@PathVariable (value="id") Integer id){
         return getCursoService().deleteCurso(id);
     }
 
     @PostMapping(value = "cursos",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public CursoEntity guardarCurso(@RequestBody CursoEntity curso){
         return getCursoService().saveUpdateCurso(curso);
     }
 
     @PutMapping(value = "cursos/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public CursoEntity actualizarCurso(@RequestBody CursoEntity curso,@PathVariable (value="id") Integer id){
         CursoEntity cursActualizar = new CursoEntity();
         curso.setId(id);
