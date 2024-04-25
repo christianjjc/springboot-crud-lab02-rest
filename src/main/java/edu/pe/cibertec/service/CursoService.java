@@ -23,11 +23,11 @@ public class CursoService {
 
     public CursoEntity obtenerCurso(int id){
         Optional<CursoEntity> optional = getCursoRepository().findById(id);
-        if (optional.isPresent()){
+        //if (optional.isPresent()){
             return optional.get();
-        }else{
-            return optional.orElse(null);
-        }
+        //}else{
+        //    return optional.orElse(null);
+        //}
     }
 
     public CursoEntity saveUpdateCurso(CursoEntity curso){

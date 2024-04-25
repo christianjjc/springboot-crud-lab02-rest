@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -29,7 +30,11 @@ public class CursoController {
     @GetMapping(value = "cursos/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public CursoEntity obtenerCurso(@PathVariable (value="id") Integer id){
-        return getCursoService().obtenerCurso(id);
+        try {
+            return getCursoService().obtenerCurso(id);
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 
     @DeleteMapping(value = "cursos/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
