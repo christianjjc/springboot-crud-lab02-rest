@@ -1,5 +1,6 @@
 package edu.pe.cibertec.controller;
 
+import edu.pe.cibertec.dto.ErrorDTO;
 import edu.pe.cibertec.model.CursoEntity;
 import edu.pe.cibertec.service.CursoService;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -20,6 +22,12 @@ public class CursoController {
     @Setter
     @Autowired
     private CursoService cursoService;
+
+    @ExceptionHandler(Exception.class)
+    private ResponseEntity<ErrorDTO> handleException() {
+        ErrorDTO errorDTO = new ErrorDTO(HttpStatus.CONFLICT.toString(),"Problema Interno", "Ha ocurrido un error en la aplicación. Verifique el log del Servidor.");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDTO);
+    }
 
     @GetMapping(value = "cursos", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
