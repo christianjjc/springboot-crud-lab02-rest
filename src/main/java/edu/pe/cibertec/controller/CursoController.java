@@ -19,7 +19,7 @@ public class CursoController {
     @Autowired
     private CursoService cursoService;
 
-    @GetMapping("cursos")
+    @GetMapping(value = "cursos", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CursoEntity> listarTodos(){
         return cursoService.listarTodos();
     }
