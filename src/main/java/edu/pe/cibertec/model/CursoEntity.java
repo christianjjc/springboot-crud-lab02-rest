@@ -26,7 +26,7 @@ public class CursoEntity {
     private Integer alumnosmin;
 
     @Column(name = "alumnosact", length = 100)
-    private String alumnosact;
+    private Integer alumnosact;
 
     @Column(name = "estado")
     private Integer estado;
